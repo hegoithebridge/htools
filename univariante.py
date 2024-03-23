@@ -1,3 +1,5 @@
+import pandas as pd
+
 def frecuencias(df, columna_categorica, porcentaje = True):
     frec_abs = df[columna_categorica].value_counts() # Values_counts() me da las frecuencias absolutas
     frec_rel = df[columna_categorica].value_counts(normalize=True) * (100 if porcentaje else 1)  # Si activo el argumento normalize me da las relativas en tanto por 1, el argumento porcentaje de la función me permite pasarlo a tanto por cien
