@@ -274,34 +274,3 @@ def bubble_plot(df, col_x, col_y, col_size, scale = 1000):
     plt.show()
 
 
-def pinta_series_temporales(df, columnas_numericas, todo_junto =False, inicio= None, fin= None):
-    if inicio and fin: # Recuerda que el valor booleano de None es False, por lo tanto así como están por defecto (los dos a None) este if no se cumpliría
-        #df = df[(df.index >= pd.to_datetime(start_date)) & (df.index <= pd.to_datetime(end_date))]
-        df = df.loc[inicio:fin]
-
-    if todo_junto:
-        fig,axs = plt.subplots(1,1, figsize=(10, 6)) # Quiero un objeto axes para poder manipularlo posteriormente, en el caso de que tenga que hacerlo
-        for col in columnas_numericas:
-            sns.lineplot(data=df[col], label=col)
-        plt.legend() 
-        plt.title('Comparativa Conjunta')
-        plt.xlabel('Fecha')
-        plt.ylabel('Valor')
-
-    else:
-        n_rows = (len(columnas_numericas) + 1) // 2
-        fig, axs = plt.subplots(n_rows, 2, figsize=(12, n_rows * 4))
-        axs = axs.flatten()
-
-        for i, col in enumerate(columnas_numericas):
-            sns.lineplot(data=df[col], ax=axs[i])
-            axs[i].set_title(f'Serie Temporal de {col}')
-            axs[i].set_xlabel('Índice')
-            axs[i].set_ylabel(col)
-
-        if len(columnas_numericas) % 2 != 0:
-            axs[-1].axis('off')
-        plt.tight_layout()
-
-    plt.show()
-    return fig,axs # DEvuelvo el objeto Figure y los Axes por si quiero hacer cambios posteriores, como si que querré
